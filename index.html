@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>D & A</title>
+  <link rel="stylesheet" href="pagina.css">
+</head>
+
+<body>
+  <div id="pantalla-inicial">
+    <div id="inicio-btn">
+      <a href="index2.html">INICIO</a>
+    </div>
+  </div>
+
+  <script>
+    alert("¿Estás lista para empezar?");
+  </script>
+  
+  <header class="header">
+  <div class="header-logo">
+    <img src="/imagenes/primlog.png" alt="Primer logo" class="logo-izq">
+  </div>
+  <div class="header-title">
+    <img src="/imagenes/seglog.png" alt="Logo secundario" class="logo-header">
+  </div>
+  <button class="hamburguesa" id="hamburguesa" aria-label="Menú">&#9776;</button>
+</header>
+
+  <nav class="menu-lateral" id="menu-lateral">
+    <ul>
+      <li><a href="index2.html"><br>Inicio</a></li>
+      <li><a href="index3.html">Historia</a></li>
+      <li><a href="galeria.html">Galería</a></li>
+      <li><a href="playlist.html">Playlist</a></li>
+      <li><a href="cosas.html">Sorpresa</a></li>
+      <li><a href="sopa.html">Juego</a></li>
+      <li><a href="futuro.html">Futuro</a></li>
+      <li><a href="contacto.html">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <div style="padding: 100px 20px 80px 20px;"></div>
+
+   </div>
+    <div class="footer">
+    <p style="color: white; text-align: center; padding-top: -3px; font-size: 24px;"><b>© 2025 D & A</b></p>
+  </div>
+
+  <script>
+    const boton = document.getElementById('hamburguesa');
+    const menu  = document.getElementById('menu-lateral');
+    boton.addEventListener('click', () => {
+      menu.classList.toggle('activo');
+    });
+  </script>
+</body>
+</html>

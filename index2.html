@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>D & A</title>
+  <link rel="stylesheet" href="pagina2.css">
+</head>
+<body>
+  
+  <header class="header">
+  <div class="header-logo">
+    <img src="/imagenes/primlog.png" alt="Primer logo" class="logo-izq">
+  </div>
+  <div class="header-title">
+    <img src="/imagenes/seglog.png" alt="Logo secundario" class="logo-header">
+  </div>
+  <button class="hamburguesa" id="hamburguesa" aria-label="Menú">&#9776;</button>
+</header>
+
+<div id="texto-uno" >
+    <h1 id="intro">INTRODUCCION</h1>
+    <p id="textouno">Esta página ha sido diseñada con todo el cariño para la niña más guapa, inteligente y especial. 
+      <br>Desde el primer instante en que pensé en crearla, mi único propósito fue transmitir todo el amor y todo lo que siento por ti.
+  Quiero comenzar con un pequeño detalle: un video que hice con mucho amor, para que recuerdes que cada gesto, 
+  cada palabra y cada esfuerzo que pongo en lo que hago para ti, viene desde lo más profundo de mi corazón.
+  Eres mi felicidad, mi inspiración y la persona que siempre soñé. Quiero compartir contigo una eternidad, 
+  seguir construyendo momentos que nos llenen de alegría y fortalecer cada día nuestro amor que cada vez es más lindo.
+</p>
+</div>
+
+<br><br>><br>><br>><br><div>
+    <video id="videouno" src="/imagenes/video1.mp4" width="1000" height="360" controls autoplay>
+        Tu navegador no soporta la etiqueta de video.
+    </video>
+</div>
+
+<div style="text-align: center; margin-top: 100px;">
+  <a href="index.html" class="boton-nav">⬅ Página anterior</a>
+  <a href="index3.html" class="boton-nav">Siguiente página ➡</a>
+</div>
+
+  <nav class="menu-lateral" id="menu-lateral">
+    <ul>
+      <li><a href="index2.html"><br>Inicio</a></li>
+      <li><a href="index3.html">Historia</a></li>
+      <li><a href="galeria.html">Galería</a></li>
+      <li><a href="playlist.html">Playlist</a></li>
+      <li><a href="cosas.html">Sorpresa</a></li>
+      <li><a href="sopa.html">Juego</a></li>
+      <li><a href="futuro.html">Futuro</a></li>
+      <li><a href="contacto.html">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <div style="padding: 100px 20px 80px 20px;">
+    
+  </div>
+    <div class="footer">
+    <p style="color: white; text-align: center; padding-top: -3px; font-size: 24px;"><b>© 2025 D & A</b></p>
+  </div>
+
+  <script>
+    const boton = document.getElementById('hamburguesa');
+    const menu = document.getElementById('menu-lateral');
+    boton.addEventListener('click', () => {
+      menu.classList.toggle('activo');
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Playlist</title>
+  <link rel="stylesheet" href="playlist.css">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Playfair+Display:wght@500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-logo">
+      <img src="/imagenes/primlog.png" alt="Primer logo" class="logo-izq">
+    </div>
+    <div class="header-title">
+      <img src="/imagenes/seglog.png" alt="Logo secundario" class="logo-header">
+    </div>
+    <button class="hamburguesa" id="hamburguesa" aria-label="Menú">&#9776;</button>
+  </header>
+
+  <nav class="menu-lateral" id="menu-lateral">
+    <ul>
+      <li><a href="index2.html"><br>Inicio</a></li>
+      <li><a href="index3.html">Historia</a></li>
+      <li><a href="galeria.html">Galería</a></li>
+      <li><a href="playlist.html">Playlist</a></li>
+      <li><a href="cosas.html">Sorpresa</a></li>
+      <li><a href="sopa.html">Juego</a></li>
+      <li><a href="futuro.html">Futuro</a></li>
+      <li><a href="contacto.html">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <h2 style="text-align:center; font-size: 5em; margin-top: -1em;"><br>Playlist &lt;3</h2>
+
+  <div class="gallery">
+    <div class="gallery-item" onclick="openLightbox(0)">
+      <img src="videos/portada1.png" alt="Video 1">
+      <div class="video-title">Mi bello angel</div>
+    </div>
+
+    <div class="gallery-item" onclick="openLightbox(1)">
+      <img src="videos/portada2.png" alt="Video 2">
+      <div class="video-title">Brillas</div>
+    </div>
+    
+    <div class="gallery-item" onclick="openLightbox(2)">
+      <img src="videos/portada3.png" alt="Video 2">
+      <div class="video-title">Todo a su tiempo</div>
+    </div>
+
+    <div class="gallery-item" onclick="openLightbox(3)">
+      <img src="videos/portada4.png" alt="Video 2">
+      <div class="video-title">ADMV</div>
+    </div>
+
+    <div class="gallery-item" onclick="openLightbox(4)">
+      <img src="videos/portada5.png" alt="Video 2">
+      <div class="video-title">Sabes una cosa</div>
+    </div>
+
+    <div class="gallery-item" onclick="openLightbox(5)">
+      <img src="videos/portada6.png" alt="Video 2">
+      <div class="video-title">Razon</div>
+    </div>
+
+    <div class="gallery-item" onclick="openLightbox(6)">
+      <img src="videos/portada7.png" alt="Video 2">
+      <div class="video-title">Naci para amarte</div>
+    </div>
+
+    <div class="gallery-item" onclick="openLightbox(7)">
+      <img src="videos/portada8.png" alt="Video 2">
+      <div class="video-title">Tu forma de ser</div>
+    </div>
+
+    <div class="gallery-item" onclick="openLightbox(8)">
+      <img src="videos/portada9.png" alt="Video 2">
+      <div class="video-title">Regalo de dios</div>
+    </div>
+
+    <div class="gallery-item" onclick="openLightbox(9)">
+      <img src="videos/portada10.png" alt="Video 2">
+      <div class="video-title">El baile y el salon</div>
+    </div>
+
+    <div class="gallery-item" onclick="openLightbox(10)">
+      <img src="videos/portada11.png" alt="Video 2">
+      <div class="video-title">Eres</div>
+    </div>
+
+    <div class="gallery-item" onclick="openLightbox(11)">
+      <img src="videos/portada12.png" alt="Video 2">
+      <div class="video-title">Hasta la muerte</div>
+    </div>
+
+  </div>
+
+  <div class="lightbox" id="lightbox">
+    <span class="lightbox-close" id="lightbox-close" title="Cerrar">&times;</span>
+    <video id="lightbox-video" controls></video>
+    <div class="caption" id="caption"></div>
+    <div class="phrase" id="phrase"></div>
+    <div class="nav-arrow nav-prev" id="nav-prev">&#10094;</div>
+    <div class="nav-arrow nav-next" id="nav-next">&#10095;</div>
+  </div>
+
+  <h2 id="frase-final" style="text-align:center; margin-top: 2em;">"Y tu voz siempre será mi canción favorita".🪼💞</h2>
+<p>
+<a href="https://open.spotify.com/playlist/5hQXeO8Lu0FoGTBmd0YSJ6?si=50a8ba13bb7f47c0&pt=d87d9398086d113802db0aa743d89986" target="_blank" rel="noopener noreferrer" class="spotify">
+  Escucha nuestra playlist ▶︎•၊၊||၊|။||||။၊|။•
+</a>
+</p>
+
+  <div style="padding: 100px 20px 80px 20px;"></div>
+
+
+<div style="text-align: center; margin-top: -10em;">
+  <a href="galeria.html" class="boton-nav">⬅ Página anterior</a>
+  <a href="cosas.html" class="boton-nav">Siguiente página ➡</a>
+</div>
+
+
+  <div class="footer">
+    <p style="color: white; text-align: center; padding-top: -3px; font-size: 24px;"><b>© 2025 D & A</b></p>
+  </div>
+
+<script>
+const videos = [
+  {
+    src: "videos/video1.mp4",
+    title: "Mi Bello Angel - Natanael Cano",
+    phrase: '"Solo tu eres la persona la que me ilusiona"'
+  },
+  {
+    src: "videos/video2.mp4",
+    title: "Brillas - Efecto SR",
+    phrase: '"Nos dimos todo lo que se nos dio, Nos dimos todo eso y mucho más"'
+  },
+  {
+    src: "videos/video3.mp4",
+    title: "Todo a su tiempo - Neton Vega",
+    phrase: '"Junto a tu lado, Se me olvida todo lo bueno y lo malo"'
+  },
+  {
+    src: "videos/video4.mp4",
+    title: "ADMV - Maluma",
+    phrase: '"Siempre me he soñado una vida contigo"'
+  },
+  {
+    src: "videos/video5.mp4",
+    title: "Sabes una cosa - Luis Miguel",
+    phrase: '"Doy gracias al cielo Por haberte conocido"'
+  },
+  {
+    src: "videos/video6.mp4",
+    title: "Razon - Los Caligaris",
+    phrase: '"Ni siquiera consigo pensar en algo que no tenga que ver con vos"'
+  },
+  {
+    src: "videos/video7.mp4",
+    title: "Naci para amarte - Junior H",
+    phrase: '"Tengo tantas ganas de que tu olor Se mezcle conmigo"'
+  },
+  {
+    src: "videos/video8.mp4",
+    title: "Tu forma de ser - Los Autenticos Decadentes",
+    phrase: '"A mi me volvio loco tu forma de ser"'
+  },
+  {
+    src: "videos/video9.mp4",
+    title: "Regalo de Dios - Julion Alvarez",
+    phrase: '"Un regalo de dios, destinado para mi"'
+  },
+  {
+    src: "videos/video10.mp4",
+    title: "El baile y el salón - Café Tacvba",
+    phrase: '"Y entre toda esta gente nos fuimos a encontrar"'
+  },
+  {
+    src: "videos/video11.mp4",
+    title: "Eres - Café Tacvba",
+    phrase: '"Cada minuto en lo que pienso, eso eres"'
+  },
+  {
+    src: "videos/video12.mp4",
+    title: "Hasta la muerte - Eslabon Armado, Ivan Cornejo",
+    phrase: '"Yo me pierdo en tu mirada cada vez"'
+  },
+];
+
+let currentIndex = 0;
+const lightbox = document.getElementById('lightbox');
+const videoElement = document.getElementById('lightbox-video');
+const caption = document.getElementById('caption');
+const phrase = document.getElementById('phrase');
+const closeBtn = document.getElementById('lightbox-close');
+const navPrev = document.getElementById('nav-prev');
+const navNext = document.getElementById('nav-next');
+
+function updateLightbox() {
+  const vid = videos[currentIndex];
+  videoElement.src = vid.src;
+  caption.textContent = vid.title;
+  phrase.textContent = vid.phrase;
+  lightbox.classList.add('active');
+  videoElement.play();
+}
+
+function openLightbox(index) {
+  currentIndex = index;
+  updateLightbox();
+}
+
+function closeLightbox() {
+  videoElement.pause();
+  videoElement.src = "";
+  lightbox.classList.remove('active');
+}
+
+closeBtn.addEventListener('click', closeLightbox);
+navPrev.addEventListener('click', () => {
+  currentIndex = (currentIndex - 1 + videos.length) % videos.length;
+  updateLightbox();
+});
+navNext.addEventListener('click', () => {
+  currentIndex = (currentIndex + 1) % videos.length;
+  updateLightbox();
+});
+
+document.addEventListener('keydown', (e) => {
+  if (!lightbox.classList.contains('active')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowRight') navNext.click();
+  if (e.key === 'ArrowLeft') navPrev.click();
+});
+
+const boton = document.getElementById('hamburguesa');
+const menu = document.getElementById('menu-lateral');
+boton.addEventListener('click', () => {
+  menu.classList.toggle('activo');
+});
+</script>
+
+</body>
+</html>

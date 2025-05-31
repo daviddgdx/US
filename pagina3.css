@@ -1,0 +1,80 @@
+
+    body {
+      font-family: 'Georgia', serif;
+      font-size: 1.1em;
+      background: #fff0f5;
+      padding-top: 70px;
+      padding-bottom: 60px;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #333;
+    }
+    .container {
+      width: 100%;
+      max-width: 1000px;
+      padding: 3em 2em;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .chapter {
+      display: none;
+      background: #ffffff;
+      padding: 5em;
+      margin: 3em 0;
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(0,0,0,0.15);
+      line-height: 1.8;
+      font-size: 1.4em;
+      width: 90%;
+      max-width: 900px;
+      text-align: justify;
+    }
+    .chapter h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2.2em;
+      color: #0077b6;
+      margin-bottom: 0.5em;
+    }
+    .chapter p {
+      margin-top: 0.5em;
+      font-size: 1.25em;
+    }
+    .chapter.active {
+      display: block;
+      animation: fadeIn 0.4s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .nav-buttons {
+      text-align: center;
+      margin: 4em 0 120px;
+    }
+    .nav-buttons button {
+      background-color: #ff66b2;
+      color: #fff;
+      border: none;
+      padding: 1.2em 3em;
+      margin: 0 1em;
+      border-radius: 30px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.6em;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: background 0.3s, transform 0.2s;
+    }
+    .nav-buttons button:hover {
+      background-color: #e55d9e;
+      transform: translateY(-2px);
+    }
+    .signature {
+      text-align: right;
+      margin-top: 1em;
+      font-style: italic;
+      font-size: 1.3em;
+    }

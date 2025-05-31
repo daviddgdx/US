@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Nuestro Futuro</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Playfair+Display&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="futuro.css"> <!-- Si tienes uno, o puedes poner los estilos directamente -->
+  
+</head>
+<body>
+
+<header class="header">
+  <div class="header-logo">
+    <img src="/imagenes/primlog.png" alt="Primer logo" class="logo-izq">
+  </div>
+  <div class="header-title">
+    <img src="/imagenes/seglog.png" alt="Logo secundario" class="logo-header">
+  </div>
+  <button class="hamburguesa" id="hamburguesa" aria-label="Menú">&#9776;</button>
+</header>
+
+  <nav class="menu-lateral" id="menu-lateral">
+    <ul>
+      <li><a href="index2.html"><br>Inicio</a></li>
+      <li><a href="index3.html">Historia</a></li>
+      <li><a href="galeria.html">Galería</a></li>
+      <li><a href="playlist.html">Playlist</a></li>
+      <li><a href="cosas.html">Sorpresa</a></li>
+      <li><a href="sopa.html">Juego</a></li>
+      <li><a href="futuro.html">Futuro</a></li>
+      <li><a href="contacto.html">Contacto</a></li>
+    </ul>
+  </nav>
+
+<div class="contenido">
+  <h1>Nuestro Futuro</h1>
+  <p class="subtitulo">Cosas que vamos a construir juntos &lt;3</p>
+
+  <div class="tarjetas">
+    <div class="tarjeta">
+      <h2>Corto Plazo</h2>
+      <ul class="lista-futuro">
+        <li><span class="emoji"></span> Quedarnos juntos un dia y noche enteros.</li>
+        <li><span class="emoji"></span> Conocer muchos pueblitos mágicos.</li>
+        <li><span class="emoji"></span> Hacer muchas pijamadas de novios.</li>
+        <li><span class="emoji"></span> Terminar el año juntos.</li>
+        <li><span class="emoji"></span> Salir de vacaciones.</li>
+        <li><span class="emoji"></span> Tener una cita elegante.</li>
+        <li><span class="emoji"></span> Conocer estados de a republica juntos.</li>
+        <li><span class="emoji"></span> Tener un cita reviviendo nuestra primera date.</li>
+        <li><span class="emoji"></span> Tomarnos mil ocho mil fotos juntos.</li>
+        <li><span class="emoji"></span> Hacer la comida favorito del otro.</li>
+        <li><span class="emoji"></span> Casarnos por el civil.</li>
+      </ul>
+    </div>
+
+    <div class="tarjeta">
+      <h2>Largo Plazo</h2>
+      <ul class="lista-futuro">
+        <li><span class="emoji"></span> Vivir juntos y darnos besitos de buenos dias y buenas noches.</li>
+        <li><span class="emoji"></span> Ir de compras, ropa o despensa.</li>
+        <li><span class="emoji"></span> Construir nuestra casa soñada.</li>
+        <li><span class="emoji"></span> Tener dos hijos.</li>
+        <li><span class="emoji"></span> Cocinarnos nuestro desayuno, comida y cena.</li>
+        <li><span class="emoji"></span> Tener una mascota y cuidarla.</li>
+        <li><span class="emoji"></span> Conocer muchos paises.</li>
+        <li><span class="emoji"></span> Casarnos por la iglesia.</li>
+        <li><span class="emoji"></span> Celebrar cada uno de nuestros aniversarios.</li>
+        <li><span class="emoji"></span> Tener un album de nosotros.</li>
+        <li><span class="emoji"></span> Envejecer juntos.</li>
+      </ul>
+    </div>
+  </div>
+
+
+<div><p class="subtitulo"><br><br>  "Cada dia iremos construyendo juntos nuestro futuro"</p></h2></div>
+
+  <div style="text-align: center; margin-top: 100px;">
+    <a href="sopa.html" class="boton-nav">⬅ Página anterior</a>
+    <a href="contacto.html" class="boton-nav">Siguiente página ➡</a>
+  </div>
+</div>
+
+  <div style="padding: 100px 20px 80px 20px;"></div>
+
+   </div>
+    <div class="footer">
+    <p style="color: white; text-align: center; padding-top: -3px; font-size: 24px;"><b>© 2025 D & A</b></p>
+  </div>
+
+  <script>
+    const boton = document.getElementById('hamburguesa');
+    const menu  = document.getElementById('menu-lateral');
+    boton.addEventListener('click', () => {
+      menu.classList.toggle('activo');
+    });
+  </script>
+
+</body>
+</html>

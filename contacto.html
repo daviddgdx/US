@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contacto</title>
+  <link rel="stylesheet" href="contacto.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+<header class="header">
+  <div class="header-logo">
+    <img src="/imagenes/primlog.png" alt="Primer logo" class="logo-izq" />
+  </div>
+  <div class="header-title">
+    <img src="/imagenes/seglog.png" alt="Logo secundario" class="logo-header" />
+  </div>
+  <button class="hamburguesa" id="hamburguesa" aria-label="Menú">&#9776;</button>
+</header>
+
+<nav class="menu-lateral" id="menu-lateral">
+  <ul>
+    <li><a href="index2.html"><br>Inicio</a></li>
+    <li><a href="index3.html">Historia</a></li>
+    <li><a href="galeria.html">Galería</a></li>
+    <li><a href="playlist.html">Playlist</a></li>
+    <li><a href="cosas.html">Sorpresa</a></li>
+    <li><a href="sopa.html">Juego</a></li>
+    <li><a href="futuro.html">Futuro</a></li>
+    <li><a href="contacto.html">Contacto</a></li>
+  </ul>
+</nav>
+
+<audio id="sonidoBeso" preload="auto">
+  <source src="imagenes/" type="audio/mpeg">
+  Tu navegador no soporta el audio.
+</audio>
+
+
+<script>
+  // Crear corazones flotantes
+  for (let i = 0; i < 30; i++) {
+    let corazon = document.createElement('div');
+    corazon.classList.add('corazon');
+    corazon.style.left = Math.random() * 100 + 'vw';
+    const size = 15 + Math.random() * 40;
+    corazon.style.width = corazon.style.height = size + 'px';
+    corazon.style.animationDuration = (5 + Math.random() * 5) + 's';
+    document.body.appendChild(corazon);
+  }
+
+  function enviarMensaje() {
+    const nombre = document.getElementById('nombre').value.trim();
+    const mensaje = document.getElementById('mensaje').value.trim();
+    const telefono = '5641432375';
+
+    if (!nombre || !mensaje) {
+      alert('Por favor, completa todos los campos para enviarme tu mensaje 💌');
+      return false;
+    }
+
+    const beso = document.getElementById('sonidoBeso');
+    beso.currentTime = 0;
+    beso.play();
+
+    alert('¡Gachas por tu mensaje mi amor! ❤️ Ahora te llevo a WhatsApp');
+
+    const texto = `Odaaa, soy ${nombre} .Quiero decirte: ${mensaje}`;
+    const url = `https://wa.me/${telefono}?text=${encodeURIComponent(texto)}`;
+
+    setTimeout(() => {
+      window.open(url, '_blank');
+    }, 1200); 
+
+    return false; 
+
+    const boton = document.getElementById('hamburguesa');
+    const menu  = document.getElementById('menu-lateral');
+    boton.addEventListener('click', () => {
+      menu.classList.toggle('activo');
+    });    
+  }
+</script>
+
+
+
+<main class="contacto-contenedor" role="main" aria-labelledby="contacto-title">
+  <h2 id="contacto-title">Contactame guapa 💕</h2>
+  <p>Escríbeme lo que sientas, si te gustó la página, o algo más mi amor &lt;3</p>
+
+  <form onsubmit="return enviarMensaje();" aria-describedby="form-description">
+    <div class="form-grupo">
+      <label for="nombre">Tu nombre:</label>
+      <input type="text" id="nombre" placeholder="<3" required autocomplete="name" />
+    </div>
+    <div class="form-grupo">
+      <label for="mensaje">Tu mensaje:</label>
+      <textarea id="mensaje" rows="6" placeholder="Escribe algo bonito aquí 💖" required></textarea>
+    </div>
+    <button type="submit" class="whatsapp-boton" aria-label="Enviar mensaje por WhatsApp">ENVIAR ❤️</button>
+  </form>
+
+  <div class="redes-sociales">
+    <a href="https://www.instagram.com/davxdd_gdd/" target="_blank" aria-label="Instagram" class="icono insta">
+      <i class="fab fa-instagram"></i>
+    </a>
+    <a href="https://www.facebook.com/davddgdx.low/" target="_blank" aria-label="Facebook" class="icono fb">
+      <i class="fab fa-facebook-f"></i>
+    </a>
+  </div>
+</main>
+
+  <div style="text-align: center; margin-top: 100px;">
+    <a href="galeria.html" class="boton-nav">⬅ Página anterior</a>
+    <a href="index.html" class="boton-nav">Volver al inicio ⟲</a>
+  </div>
+
+<div style="padding: 0px 20px 80px 20px;"></div>
+
+
+<div class="footer">
+  <p style="color: white; text-align: center; font-size: 24px;"><b>© 2025 D & A - Siempre estaré a tu lado. 💞</b></p>
+</div>
+
+<script>
+    const boton = document.getElementById('hamburguesa');
+    const menu  = document.getElementById('menu-lateral');
+    boton.addEventListener('click', () => {
+      menu.classList.toggle('activo');
+    });
+</script>
+
+</body>
+</html>

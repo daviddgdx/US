@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Cosas que Amo de Ti</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="cosas.css">
+  
+</head>
+<body>
+
+ <header class="header">
+  <div class="header-logo">
+    <img src="/imagenes/primlog.png" alt="Primer logo" class="logo-izq">
+  </div>
+  <div class="header-title">
+    <img src="/imagenes/seglog.png" alt="Logo secundario" class="logo-header">
+  </div>
+  <button class="hamburguesa" id="hamburguesa" aria-label="Menú">&#9776;</button>
+</header>
+
+  <nav class="menu-lateral" id="menu-lateral">
+    <ul>
+      <li><a href="index2.html"><br>Inicio</a></li>
+      <li><a href="index3.html">Historia</a></li>
+      <li><a href="galeria.html">Galería</a></li>
+      <li><a href="playlist.html">Playlist</a></li>
+      <li><a href="cosas.html">Cosas</a></li>
+      <li><a href="sopa.html">Juego</a></li>
+      <li><a href="futuro.html">Futuro</a></li>
+      <li><a href="contacto.html">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <script>
+    for (let i = 0; i < 25; i++) {
+      const heart = document.createElement('div');
+      heart.className = 'floating-heart';
+      heart.style.left = `${Math.random() * 100}vw`;
+      heart.style.top = `${Math.random() * 100}vh`;
+      heart.style.fontSize = `${Math.random() * 25 + 10}px`;
+      heart.style.animationDuration = `${Math.random() * 5 + 5}s`;
+      heart.innerHTML = '❤️';
+      document.body.appendChild(heart);
+    }
+
+    const boton = document.getElementById('hamburguesa');
+    const menu  = document.getElementById('menu-lateral');
+    boton.addEventListener('click', () => {
+    menu.classList.toggle('activo');
+    });
+
+  </script>
+<main class="contenido">
+  <div class="container">
+    <img src="imagenes/primlog1.png" alt="Nosotros" class="image">
+
+    <h1>Cosas que amo de ti</h1>
+    <div class="grid">
+      <div class="card"><span>1.</span>La forma que me amas con todo tu corazón</div>
+      <div class="card"><span>2.</span>La manera en cómo me tratas</div>
+      <div class="card"><span>3.</span>Tu mirada</div>
+      <div class="card"><span>4.</span>La confianza que me das</div>
+      <div class="card"><span>5.</span>Tu voz</div>
+      <div class="card"><span>6.</span>La forma en que me haces sentir</div>
+      <div class="card"><span>7.</span>Tus ojos</div>
+      <div class="card"><span>8.</span>Cómo me miras</div>
+      <div class="card"><span>9.</span>La forma en que me motivas</div>
+      <div class="card"><span>10.</span>Cómo me cuidas</div>
+      <div class="card"><span>11.</span>Tu olor tan peculiar</div>
+      <div class="card"><span>12.</span>Me haces sentir amado siempre</div>
+      <div class="card"><span>13.</span>Tus labios y tus besitos</div>
+      <div class="card"><span>14.</span>Tu carita</div>
+      <div class="card"><span>15.</span>Tu sinceridad</div>
+      <div class="card"><span>16.</span>La tranquilidad que me transmites</div>
+      <div class="card"><span>17.</span>Lo linda que eres</div>
+      <div class="card"><span>18.</span>Tu sonrisa tan linda</div>
+      <div class="card"><span>19.</span>Tus caricias</div>
+      <div class="card"><span>20.</span>La manera tan linda que me hablas</div>
+      <div class="card"><span>21.</span>Lo bonita que eres </div>
+
+      
+    </div>
+
+
+    <p class="quote">"Y cada día encuentro una nueva razón para seguir amándote. ❤️"</p>
+
+</main>
+
+<div style="text-align: center; margin-top: 100px;">
+  <a href="playlist.html" class="boton-nav">⬅ Página anterior</a>
+  <a href="sopa.html" class="boton-nav">Siguiente página ➡</a>
+</div>
+
+</div>
+    <div class="footer">
+    <p style="color: white; text-align: center; padding-top: -3px; font-size: 24px;"><b>© 2025 D & A</b></p>
+  </div>
+
+<div style="height: 150px;"></div>
+  
+</body>
+</html>

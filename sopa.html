@@ -1,0 +1,879 @@
+<!DOCTYPE html> 
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sopa de Letras</title>
+  <link rel="stylesheet" href="sopastyles.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap');
+
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #ffe4ec 0%, #ffe0f7 100%);
+      padding-top: 140px;     /* Para que todo quede debajo del header */
+      padding-left: 20px;
+      padding-right: 20px;
+      text-align: center;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 0;
+      background: linear-gradient(90deg, #0077b6, #00b4d8);
+      color: white;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100px;
+      z-index: 1001;
+      text-align: left;
+    }
+
+    .logo-izq {
+      width: 120px;    
+      height: 130px;
+      margin-left: 20px;
+    }
+    .logo-header {
+      margin-top: 10px;
+      width: 300px;    
+      height: 250px;
+      margin-right: 20px;
+    }
+
+    .hamburguesa {
+      font-size: 45px; /* mayor */
+      cursor: pointer;
+      padding: 10px 20px;
+      color: white;
+      background: none;
+      border: none;
+      margin-right: 20px;
+    }
+
+    /* Títulos más grandes */
+    h1 {
+      font-size: 4rem;
+      color: #d63384;
+      margin: 0 0 20px;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.1);
+    }
+    p.subtitle {
+      font-size: 2rem;
+      color: #555;
+      margin: 0 0 50px;
+    }
+
+
+    #controles {
+      margin-bottom: 40px;
+      display: inline-flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    #controles select,
+    #controles button {
+      padding: 15px 25px;
+      font-size: 1.4rem;
+      border: none;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+    }
+    #controles select { background: #fff; }
+    #controles button {
+      background: #d63384;
+      color: white;
+    }
+    #controles button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    /* Tablero más grande y centrado */
+    #sopa {
+      display: grid;
+      justify-content: center;
+      gap: 8px;
+      margin: 0 auto 40px;
+      max-width: 90vw;
+    }
+    .letra {
+      width: 70px;
+      height: 70px;
+      background: #fff;
+      border: 2px solid #ddd;
+      font-size: 2rem;
+      font-weight: 600;
+      cursor: pointer;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .letra:hover {
+      background: #f8d7da;
+      transform: scale(1.1);
+      z-index: 1;
+    }
+    .selected {
+      background: #ffe0f7;
+      border-color: #d63384;
+      transform: scale(1.1);
+    }
+    .marcada {
+      background: #d4edda !important;
+      color: #155724;
+      border-color: #155724;
+      animation: pulse 1s ease-out infinite alternate;
+    }
+    @keyframes pulse {
+      to { box-shadow: 0 0 15px rgba(40,167,69,0.5); }
+    }
+
+    /* Lista de palabras más grande */
+    #palabras {
+      margin-top: 40px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
+    }
+    .palabra {
+      padding: 14px 24px;
+      background: #fff3cd;
+      border-radius: 12px;
+      color: #856404;
+      font-weight: 600;
+      font-size: 1.4rem;
+      transition: transform 0.3s;
+    }
+    .palabra-encontrada {
+      text-decoration: line-through;
+      color: #28a745 !important;
+      background: #e2f7e2;
+      transform: scale(1.1);
+    }
+
+    #overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s;
+      z-index: 1000;
+    }
+    #overlay.show {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .mensaje {
+      background: #fff;
+      padding: 30px 50px;
+      border-radius: 16px;
+      max-width: 90%;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+      font-size: 2rem;
+      color: #333;
+      text-align: center;
+      animation: popIn 0.5s ease-out;
+    }
+    @keyframes popIn {
+      from { transform: scale(0.5); opacity: 0; }
+      to   { transform: scale(1);   opacity: 1; }
+    }
+
+    #confetti-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    .footer {
+      background-color: rgb(76, 86, 97);
+      position: fixed;
+      width: 100%;
+      height: 60px;
+      bottom: 0;
+      left: 0;
+    }
+    .footer p {
+      color: white;
+      text-align: center;
+      font-size: 1.2rem;
+      margin: 0;
+      line-height: 60px;
+    }
+
+    #puzzle-container {
+      margin: 60px auto 60px; /* espacio entre sopa y puzzle */
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      padding: 30px 20px 40px;
+      max-width: 500px;
+      width: 90%;
+      font-family: 'Open Sans', sans-serif;
+    }
+    #puzzle-container h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.8rem;
+      color: #0077b6;
+      margin-bottom: 10px;
+    }
+    #puzzle-container p.subtitle-puzzle {
+      font-size: 1rem;
+      color: #555555;
+      margin-bottom: 20px;
+      font-family: 'Lato', sans-serif;
+    }
+
+    /* Formulario del puzzle */
+    #puzzle-form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    #puzzle-form input[type="text"] {
+      width: 100%;
+      max-width: 300px;
+      padding: 12px 15px;
+      font-size: 1rem;
+      border: 1.5px solid #cccccc;
+      border-radius: 6px;
+      transition: border 0.2s ease, box-shadow 0.2s ease;
+      margin-bottom: 12px;
+      font-family: 'Open Sans', sans-serif;
+    }
+    #puzzle-form input[type="text"]:focus {
+      outline: none;
+      border-color: #0077b6;
+      box-shadow: 0 0 6px rgba(0, 119, 182, 0.3);
+    }
+
+    .boton-nav-puzzle {
+      position: relative;
+      display: inline-block;
+      padding: 14px 40px;
+      margin: 10px 0;
+      font-size: 1rem;
+      font-weight: 700;
+      font-family: 'Montserrat', sans-serif;
+      text-transform: uppercase;
+      color: #ffffff;
+      background: linear-gradient(135deg, #00b4d8, #0077b6);
+      border: 2px solid transparent;
+      border-radius: 50px;
+      box-shadow:
+        0 8px 20px rgba(0, 180, 216, 0.3),
+        inset 0 0 0 0 rgba(255, 255, 255, 0.1);
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      backdrop-filter: blur(2px);
+    }
+    .boton-nav-puzzle::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.25) 0%, transparent 70%);
+      transform: rotate(45deg);
+      transition: all 0.6s ease;
+    }
+    .boton-nav-puzzle::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50px;
+      padding: 2px;
+      background: linear-gradient(120deg, #00f5d4, #00b4d8, #0077b6, #00f5d4);
+      background-size: 300% 300%;
+      animation: borderGlow 6s ease infinite;
+      z-index: -1;
+    }
+    @keyframes borderGlow {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+    .boton-nav-puzzle:hover {
+      background: linear-gradient(135deg, #0096c7, #023e8a);
+      transform: scale(1.05);
+      box-shadow:
+        0 12px 28px rgba(0, 119, 182, 0.4),
+        inset 0 0 10px rgba(255, 255, 255, 0.1);
+    }
+    .boton-nav-puzzle:hover::before {
+      top: -30%;
+      left: -30%;
+      opacity: 0;
+      transition: all 0.4s ease;
+    }
+
+    /* Botón Reiniciar del puzzle */
+    #btnReiniciarPuzzle {
+      background: #555555;
+    }
+    #btnReiniciarPuzzle::after {
+      background: none;
+    }
+    #btnReiniciarPuzzle:hover {
+      background: #3a3a3a;
+    }
+
+    /* Botón Imprimir del puzzle (oculto inicialmente) */
+    #btnImprimirPuzzle {
+      background: #00b4d8;
+      display: none;
+    }
+    #btnImprimirPuzzle::after {
+      background: none;
+    }
+    #btnImprimirPuzzle:hover {
+      background: #0096c7;
+    }
+
+    /* Mensajes de error/éxito en puzzle */
+    #mensajeErrorPuzzle,
+    #mensajeExitoPuzzle {
+      font-size: 0.95rem;
+      margin-top: 6px;
+      height: 20px;
+      font-family: 'Lato', sans-serif;
+    }
+    #mensajeErrorPuzzle {
+      color: #d9534f;
+    }
+    #mensajeExitoPuzzle {
+      color: #28a745;
+    }
+
+    /* Contador de movimientos puzzle */
+    #contadorMovimientosPuzzle {
+      display: none;
+      margin-top: 12px;
+      font-weight: 600;
+      font-size: 1rem;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    /* Grid de piezas */
+#puzzle {
+  margin-top: 25px;
+  display: none;              /* se mostrará cuando la contraseña sea correcta */
+  display: grid;
+  grid-template-columns: repeat(5, 120px); /* debe coincidir con .pieza width */
+  grid-auto-rows: 120px;       /* cada fila tendrá 120px de alto, igual que .pieza height */
+  grid-gap: 0;                /* 0px entre filas y columnas (puedes cambiar a, por ejemplo, 6px) */
+  justify-content: center;
+}
+.pieza {
+  width: 120px;
+  height: 120px;
+  background-image: url('imagenes/puzzle.jpg');
+  background-size: 600px 600px;   
+  background-repeat: no-repeat;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.15s ease,
+              border-color 0.15s ease,
+              box-shadow 0.15s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+
+    .pieza:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.17);
+    }
+    .pieza.seleccionada {
+      border-color: #0077b6;
+      box-shadow: 0 0 0 3px rgba(0, 119, 182, 0.3);
+    }
+    /* Clase para marcar una pieza que ya está en su lugar correcto */
+    .pieza.correcto {
+      border-color: #28a745;
+      box-shadow: 0 0 10px rgba(40, 167, 69, 0.6);
+      pointer-events: none;
+    }
+
+    #frase-final-puzzle {
+      display: none;             
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.2rem;
+      color: #0077b6;
+      margin-top: 15px;
+    }
+
+    @media (max-width: 550px) {
+      /* Ajuste sopa de letras */
+      #sopa {
+        grid-template-columns: repeat(auto-fill, 50px);
+        gap: 4px;
+      }
+      .letra {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+      }
+      /* Ajuste contenedores */
+      #puzzle-container {
+        padding: 20px 15px 30px;
+      }
+      /* Puzzle en móvil: piezas 60×60 */
+      #puzzle {
+        grid-template-columns: repeat(5, 60px);
+        grid-gap: 3px;
+      }
+      .pieza {
+        width: 60px;
+        height: 60px;
+        background-size: 300px 300px; /* 5×60 = 300 */
+      }
+      /* Botones puzzle más pequeños */
+      .boton-nav-puzzle {
+        padding: 12px 30px;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-logo">
+      <img src="/imagenes/primlog.png" alt="Primer logo" class="logo-izq">
+    </div>
+    <div class="header-title">
+      <img src="/imagenes/seglog.png" alt="Logo secundario" class="logo-header">
+    </div>
+    <button class="hamburguesa" id="hamburguesa" aria-label="Menú">&#9776;</button>
+  </header>
+
+  <nav class="menu-lateral" id="menu-lateral">
+    <ul>
+      <li><a href="index2.html"><br>Inicio</a></li>
+      <li><a href="index3.html">Historia</a></li>
+      <li><a href="galeria.html">Galería</a></li>
+      <li><a href="playlist.html">Playlist</a></li>
+      <li><a href="cosas.html">Sorpresa</a></li>
+      <li><a href="sopa.html">Juego</a></li>
+      <li><a href="futuro.html">Futuro</a></li>
+      <li><a href="contacto.html">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <canvas id="confetti-canvas"></canvas>
+  <h1>Sopa de Letras</h1>
+  <p class="subtitle">Encuentra todas las palabras ❤️</p>
+
+  <div id="controles">
+    <select id="difficulty">
+      <option value="10">Fácil (10×10)</option>
+      <option value="15">Medio (15×15)</option>
+      <option value="20" selected>Difícil (20×20)</option>
+    </select>
+    <button id="reset">Reiniciar</button>
+  </div>
+
+  <div id="sopa"></div>
+  <div id="palabras"></div>
+  <div id="overlay"><div class="mensaje" id="overlay-text"></div></div>
+
+
+  <div style="height: 100px;"></div>
+
+  <div>
+    <h2 id="frase-final-sopa">"Siempre seras mi foto favorita.❤️"</h2>
+  </div>
+
+  <div id="puzzle-container">
+    <h2>Juego Sorpresa</h2>
+    <p class="subtitle-puzzle">Ingresa la fecha que empezamos a ser novios (ddmmaaaa) para desbloquearlo</p>
+    <div id="puzzle-form">
+      <input 
+        type="text" 
+        id="inputFechaPuzzle" 
+        placeholder="Ponlo coyeye" 
+        maxlength="8"
+      />
+      <button id="btnValidarPuzzle" class="boton-nav-puzzle">Desbloquear</button>
+      <button id="btnReiniciarPuzzle" class="boton-nav-puzzle">Reiniciar</button>
+      <button id="btnImprimirPuzzle" class="boton-nav-puzzle">Imprimir</button>
+
+      <!-- Aquí ocultaremos inicialmente este contador -->
+      <div id="contadorMovimientosPuzzle">Movimientos: 0</div>
+      <h2 id="frase-final-puzzle">"Siempre seras la pieza perfecta de mi vida <3"</h2>
+
+      <div id="mensajeErrorPuzzle"></div>
+      <div id="mensajeExitoPuzzle"></div>
+    </div>
+    <div id="puzzle"></div>
+  </div>
+
+
+  <div style="text-align: center; margin-top: 100px;">
+    <a href="cosas.html" class="boton-nav">⬅ Página anterior</a>
+    <a href="futuro.html" class="boton-nav">Siguiente página ➡</a>
+  </div>
+
+  <div class="footer">
+    <p style="color: white; text-align: center; padding-top: -3px; font-size: 24px;"><b>© 2025 D &amp; A</b></p>
+  </div>
+
+  <script>
+    const hamburguesaBtn = document.getElementById('hamburguesa');
+    const menuLateral    = document.getElementById('menu-lateral');
+    hamburguesaBtn.addEventListener('click', () => {
+      menuLateral.classList.toggle('activo');
+    });
+
+    const palabrasFacil   = ["AMOR","AZUL","DALA","SIETE","ROBLOX","GUITARRA","GARCIA","DELAVEGA"];
+    const palabrasMedio   = ["DELAVEGA","GARCIA","DALA","ENERO","JULIO","SIETE","POCHACCO","AMOR","SHALLOW","ENCHILADAS","AZUL","ROBLOX","SPIDERMAN","GUITARRA"];
+    const palabrasDificil = [...palabrasMedio, "LUNA", "DANIYDAVID", "ERES", "BRILLAS"];
+
+    let palabras = [], size, total, mitad, casi, foundCount, shownHalf, shownCasi, shownFinal;
+    let sopa = [];
+    const directions = [[0,1],[1,0],[1,1],[-1,1],[0,-1],[-1,0],[-1,-1],[1,-1]];
+    const cont = document.getElementById('sopa'), list = document.getElementById('palabras');
+    const overlay = document.getElementById('overlay'), overlayText = document.getElementById('overlay-text');
+    let seleccion = [];
+
+    function initGame(n) {
+      palabras = n === 10 ? palabrasFacil : n === 15 ? palabrasMedio : palabrasDificil;
+      size      = n;
+      total     = palabras.length;
+      mitad     = Math.floor(total / 2);
+      casi      = total - 2;
+      foundCount= 0;
+      shownHalf = shownCasi = shownFinal = false;
+      seleccion = [];
+      sopa      = Array.from({ length: size }, () => Array(size).fill(''));
+      palabras.forEach(place);
+      fillRandom();
+      renderGrid();
+      renderList();
+    }
+
+    function place(pal) {
+      let tries=0, max=300;
+      while (tries < max) {
+        const dir = directions[Math.floor(Math.random()*8)];
+        const x   = Math.floor(Math.random()*size), y = Math.floor(Math.random()*size);
+        let ok = pal.split('').every((l,i) => {
+          const nx=x+dir[0]*i, ny=y+dir[1]*i;
+          return nx>=0 && ny>=0 && nx<size && ny<size && (!sopa[nx][ny]||sopa[nx][ny]===l);
+        });
+        if (!ok) { tries++; continue; }
+        pal.split('').forEach((l,i) => sopa[x+dir[0]*i][y+dir[1]*i]=l);
+        return;
+      }
+      console.warn(`No se pudo colocar "${pal}" tras ${max} intentos.`);
+    }
+
+    function fillRandom() {
+      for (let i=0;i<size;i++)
+        for (let j=0;j<size;j++)
+          if (!sopa[i][j]) sopa[i][j] = String.fromCharCode(65 + Math.floor(Math.random()*26));
+    }
+
+    function renderGrid() {
+      cont.innerHTML = '';
+      cont.style.gridTemplateColumns = `repeat(${size}, 70px)`;
+      sopa.flat().forEach((ltr, idx) => {
+        const div = document.createElement('div');
+        div.className = 'letra';
+        div.textContent = ltr;
+        div.dataset.i = Math.floor(idx/size);
+        div.dataset.j = idx%size;
+        div.addEventListener('click', () => toggle(div));
+        cont.appendChild(div);
+      });
+    }
+
+    function renderList() {
+      list.innerHTML = '';
+      palabras.forEach(p => {
+        const el = document.createElement('div');
+        el.className = 'palabra';
+        el.id = 'pal-' + p;
+        el.textContent = p;
+        list.appendChild(el);
+      });
+    }
+
+    function toggle(cell) {
+      const idx = seleccion.indexOf(cell);
+      if (idx > -1) {
+        seleccion.slice(idx).forEach(c => c.classList.remove('selected'));
+        seleccion = seleccion.slice(0, idx);
+        return;
+      }
+      cell.classList.add('selected');
+      seleccion.push(cell);
+      const str = seleccion.map(c=>c.textContent).join('');
+      const rev = str.split('').reverse().join('');
+      if (palabras.includes(str) || palabras.includes(rev)) {
+        seleccion.forEach(c=>{
+          c.classList.replace('selected','marcada');
+        });
+        document.getElementById('pal-'+(palabras.includes(str)?str:rev))
+                .classList.add('palabra-encontrada');
+        seleccion = [];
+        foundCount++;
+        milestone();
+      }
+    }
+
+    function showMsg(txt, cb) {
+      overlayText.textContent = txt;
+      overlay.classList.add('show');
+      setTimeout(()=>{
+        overlay.classList.remove('show');
+        if(cb) cb();
+      },4000);
+    }
+
+    function milestone() {
+      if (!shownHalf && foundCount===mitad) {
+        shownHalf=true; showMsg('💖 Solo falta la mitad, Tú puedes mi amor!💖');
+      }
+      else if (!shownCasi && foundCount===casi) {
+        shownCasi=true; showMsg('✨ Solo dos más y ya bebe✨');
+      }
+      else if (!shownFinal && foundCount===total) {
+        shownFinal=true;
+        showMsg('¡Ganaste tú en el juego y yo gané en la vida a tu lado!<3',()=>{
+          showMsg('🌹 Eres mi todo 🌹');
+        });
+      }
+    }
+
+    document.getElementById('reset').onclick = () =>
+      initGame(+document.getElementById('difficulty').value);
+    window.onload = () =>
+      initGame(+document.getElementById('difficulty').value);
+
+    // PUZZLE
+    const fechaCorrecta = "07012025";
+    const inputFechaPuzzle   = document.getElementById("inputFechaPuzzle");
+    const btnValidarPuzzle   = document.getElementById("btnValidarPuzzle");
+    const btnReiniciarPuzzle = document.getElementById("btnReiniciarPuzzle");
+    const btnImprimirPuzzle  = document.getElementById("btnImprimirPuzzle");
+    const mensajeErrorPuzzle = document.getElementById("mensajeErrorPuzzle");
+    const mensajeExitoPuzzle = document.getElementById("mensajeExitoPuzzle");
+    const contadorMovPuzzle  = document.getElementById("contadorMovimientosPuzzle");
+    const puzzleDiv          = document.getElementById("puzzle");
+
+    let piezas = [];
+    let seleccionada = null;
+    let movimientos = 0;
+
+    // Listener nombrado para cada pieza
+    function onPuzzleClick(evt) {
+      manejarClickPuzzle(evt.currentTarget);
+    }
+
+    function crearPuzzle() {
+      piezas = [];
+      puzzleDiv.innerHTML = "";
+      movimientos = 0;
+      actualizarContadorPuzzle();
+
+      const filas = 5;
+      const columnas = 5;
+
+      // Crear 25 piezas con su posición de fondo
+      for (let y = 0; y < filas; y++) {
+        for (let x = 0; x < columnas; x++) {
+          const div = document.createElement("div");
+          div.classList.add("pieza");
+          div.style.backgroundPosition = `-${x * 120}px -${y * 120}px`;
+          div.dataset.posCorrecta = y * columnas + x;
+          div.dataset.posActual   = y * columnas + x;
+          div.dataset.locked      = "false";
+          piezas.push(div);
+        }
+      }
+
+      // Mezclar (Fisher–Yates)
+      for (let i = piezas.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        if (i !== j) {
+          [piezas[i].dataset.posActual, piezas[j].dataset.posActual] =
+            [piezas[j].dataset.posActual, piezas[i].dataset.posActual];
+        }
+      }
+
+      // Ordenar según posActual y añadir al DOM + listener
+      piezas
+        .sort((a, b) => a.dataset.posActual - b.dataset.posActual)
+        .forEach(p => {
+          puzzleDiv.appendChild(p);
+          p.addEventListener("click", onPuzzleClick);
+        });
+    }
+
+    function manejarClickPuzzle(pieza) {
+      // Si ya está bloqueada, no hacer nada
+      if (pieza.dataset.locked === "true") return;
+
+      if (!seleccionada) {
+        // seleccionar la primera pieza
+        seleccionada = pieza;
+        pieza.classList.add("seleccionada");
+      } else if (seleccionada === pieza) {
+        // deseleccionar si vuelvo a hacer clic
+        seleccionada.classList.remove("seleccionada");
+        seleccionada = null;
+      } else {
+        // intercambiar posActual
+        const posSel   = seleccionada.dataset.posActual;
+        const posPieza = pieza.dataset.posActual;
+        seleccionada.dataset.posActual = posPieza;
+        pieza.dataset.posActual       = posSel;
+
+        // reordenar visualmente
+        piezas
+          .sort((a, b) => a.dataset.posActual - b.dataset.posActual)
+          .forEach(p => puzzleDiv.appendChild(p));
+
+        // limpiar selección anterior
+        seleccionada.classList.remove("seleccionada");
+
+        // comprobar si quedaron en su lugar correcto
+        [seleccionada, pieza].forEach(pz => {
+          if (pz.dataset.posActual === pz.dataset.posCorrecta) {
+            // marcar como bloqueada
+            pz.dataset.locked = "true";
+            pz.classList.add("correcto");
+            pz.removeEventListener("click", onPuzzleClick);
+          }
+        });
+
+        seleccionada = null;
+
+        movimientos++;
+        actualizarContadorPuzzle();
+        comprobarSiTerminoPuzzle();
+      }
+    }
+
+    function actualizarContadorPuzzle() {
+      contadorMovPuzzle.textContent = `Movimientos: ${movimientos}`;
+    }
+
+    function comprobarSiTerminoPuzzle() {
+      const terminado = piezas.every(
+        p => p.dataset.posActual === p.dataset.posCorrecta
+      );
+      if (terminado) {
+        mensajeExitoPuzzle.textContent = "¡Felicidades amorcito! Completaste el rompecabezas.";
+        puzzleDiv.style.pointerEvents = "none";
+        btnReiniciarPuzzle.textContent = "Jugar de nuevo";
+      }
+    }
+
+    btnValidarPuzzle.addEventListener("click", () => {
+      const val = inputFechaPuzzle.value.trim();
+      mensajeErrorPuzzle.textContent = "";
+      mensajeExitoPuzzle.textContent = "";
+
+      if (!/^\d{8}$/.test(val)) {
+        mensajeErrorPuzzle.textContent = "Formato incorrecto. Usa ddmmaaaa.😠😠";
+        return;
+      }
+      if (val !== fechaCorrecta) {
+        mensajeErrorPuzzle.textContent = "Fecha incorrecta. Intenta de nuevo.😠";
+        return;
+      }
+
+      // Fecha correcta: mostrar puzzle
+      mensajeExitoPuzzle.textContent = "✅ Fecha correcta amorcito. ¡Pos amos a jugar!";
+      puzzleDiv.style.display = "grid";
+
+      // Mostrar contador y el <h2> ocultos hasta ahora
+      document.getElementById("contadorMovimientosPuzzle").style.display = "block";
+      document.getElementById("frase-final-puzzle").style.display = "block";
+
+      btnValidarPuzzle.style.display = "none";
+      inputFechaPuzzle.disabled = true;
+      crearPuzzle();
+
+      // Mostrar botones reiniciar e imprimir
+      btnReiniciarPuzzle.style.display = "block";
+      btnImprimirPuzzle.style.display  = "block";
+    });
+
+    // Botón Reiniciar Puzzle
+    btnReiniciarPuzzle.addEventListener("click", () => {
+      mensajeErrorPuzzle.textContent = "";
+      mensajeExitoPuzzle.textContent = "";
+      movimientos = 0;
+      actualizarContadorPuzzle();
+      seleccionada = null;
+      puzzleDiv.style.pointerEvents = "auto";
+
+      if (inputFechaPuzzle.disabled) {
+        // ya desbloqueado: solo mezclar nuevamente
+        crearPuzzle();
+      } else {
+        // antes de desbloquear: ocultar puzzle y controles
+        puzzleDiv.style.display = "none";
+        btnReiniciarPuzzle.style.display = "none";
+        btnImprimirPuzzle.style.display  = "none";
+      }
+    });
+
+    // Botón Imprimir Puzzle
+    btnImprimirPuzzle.addEventListener("click", () => {
+      window.print();
+    });
+
+    window.addEventListener("load", () => {
+      puzzleDiv.style.display = "none";
+      btnReiniciarPuzzle.style.display = "none";
+      btnImprimirPuzzle.style.display  = "none";
+    });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+  <div style="height: 150px;"></div>
+
+</body>
+</html>
